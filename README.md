@@ -44,3 +44,11 @@ You don’t have to ever use `eject`. The curated feature set is suitable for sm
 You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
 To learn React, check out the [React documentation](https://reactjs.org/).
+
+
+## notes while making the test.
+i  manage to connect all make an axios connections to the APIs listed on the test. unfortunately im having errors on the 
+http://localhost:3000/user/bb564646-533a-499b-81fe-18d1032cead3
+and http://localhost:3000/server
+
+im having access errors. the login and registration seems to work though. 
