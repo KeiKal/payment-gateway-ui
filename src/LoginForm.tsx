@@ -26,16 +26,27 @@ const LoginForm: React.FC = () => {
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     try {
+      // Send the login data to the backend
       const response = await axios.post('http://localhost:3000/auth/login', loginData);
+  
+      // Log the response for debugging
       console.log('Login Success:', response.data.user);
-
+  
+      // Extract id and is_admin from the response
       const { id, is_admin } = response.data.user;
-
+  
+      // Store id and is_admin in sessionStorage
+      sessionStorage.setItem('userId', id);
+      sessionStorage.setItem('isAdmin', is_admin);
+  
+      // Redirect to dashboard with state
       navigate('/dashboard', { state: { id, is_admin } });
     } catch (error) {
       console.error('Login Error:', error);
+      // Optionally, handle error (e.g., show an error message to the user)
     }
   };
+
 
 
   return (

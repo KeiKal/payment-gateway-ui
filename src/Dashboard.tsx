@@ -14,7 +14,13 @@ interface UserDetails {
 const Dashboard: React.FC = () => {
   const location = useLocation();
   const navigate = useNavigate();
-  const { id, is_admin } = location.state as UserDetails;
+
+  // Retrieve id and is_admin from location state or sessionStorage
+  const { id, is_admin } = location.state as UserDetails || {
+    id: sessionStorage.getItem('userId'),
+    is_admin: sessionStorage.getItem('isAdmin') === 'true',
+  };
+
   const [userDetails, setUserDetails] = React.useState<UserDetails | null>(null);
   const [error, setError] = React.useState<string | null>(null);
 
@@ -28,7 +34,11 @@ const Dashboard: React.FC = () => {
       }
     };
 
-    fetchUserDetails();
+    if (id) {
+      fetchUserDetails();
+    } else {
+      setError('User ID not found');
+    }
   }, [id]);
 
   const handleHealthCheck = async () => {
@@ -95,7 +105,7 @@ const Content = styled.main`
   background-color: white;
   border-radius: 8px;
   box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
-  margin-top: -40px; /* to overlap header */
+  margin-top: -40px;
 `;
 
 const Footer = styled.footer`
@@ -116,6 +126,7 @@ const Button = styled.button`
   border: none;
   border-radius: 4px;
   cursor: pointer;
+
   &:hover {
     background-color: #0056b3;
   }
